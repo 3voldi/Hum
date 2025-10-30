@@ -16,12 +16,11 @@ export const meta: CommandMeta = {
   author: "Liane Cagara",
   version: "1.0.0",
   category: "Shopping",
-  permissions: [0],
-  noPrefix: false,
+  role: 0,
   waitingTime: 1,
   otherNames: ["comshop", "requestitem", "reqitem", "cshop", "csh"],
   shopPrice: 1000000,
-  requirement: "3.0.0",
+  requirement: "4.0.0",
   icon: "👥",
   cmdType: "cplx_g",
   isGame: true,
@@ -247,9 +246,7 @@ const home = new BriefcaseAPI(
       key: "submit",
       description: "Submit a JSON of your requested item.",
       args: ["<json data>"],
-      async handler(ctx, extra, bcContext) {
-        
-      },
+      async handler(ctx, extra, bcContext) {},
     },
   ]
 );
