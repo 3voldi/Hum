@@ -377,6 +377,14 @@ const home = new BriefcaseAPI(
           return output.reply(head + `${rej}\n${validation.err}`);
         }
         const item = validation.item;
+        delete item.likes;
+        delete item.dislikes;
+        delete item.featuredDestination;
+        delete item.isFeatured;
+        delete item.approved;
+        delete item.authorID;
+        delete item.author;
+        delete item.rejectMessage;
         const all = await usersDB.getAllCache();
         const allSubs = Object.entries(all)
           .map((i) => {
