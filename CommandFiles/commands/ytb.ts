@@ -5,9 +5,9 @@
  */
 export const meta = {
   name: "ytdl",
-  description: "Search YouTube videos and stream them via aryan API.",
-  author: "MrKimstersDev | yt-search | + Liane | API Sync by Christus",
-  version: "1.0.5",
+  description: "Search YouTube videos and download/stream via Aryan API.",
+  author: "MrKimstersDev | yt-search | + Liane | Fixed by Christus",
+  version: "1.0.6",
   usage: "{prefix}{name} <search query>",
   category: "Media",
   permissions: [0],
@@ -23,6 +23,7 @@ export const meta = {
 import yts from "yt-search";
 import { defineEntry } from "@cass/define";
 import { UNISpectra } from "@cass/unispectra";
+import axios from "axios";
 
 export const langs = {
   en: {
@@ -75,6 +76,7 @@ function formatVideoDetails(video) {
   return `🎥 **${video.snippet.title}**\n${UNISpectra.arrow} ${video.snippet.channelTitle}\n${UNISpectra.arrowFromT} Uploaded ${publishedAt}\n🔗 ${videoUrl}`;
 }
 
+// URL de l'API Aryan
 const ARYAN_API = "http://65.109.80.126:20409/aryan/yx";
 
 export const entry = defineEntry(
@@ -117,34 +119,35 @@ export async function reply({ input, output, repObj, detectID, langParser }) {
   if (input.senderID !== id || !results) return;
 
   const parts = input.body.trim().split(/\s*\|\s*/);
-  if (parts.length !== 2) {
-    return output.reply(getLang("invalidFormat"));
-  }
+  if (parts.length !== 2) return output.reply(getLang("invalidFormat"));
 
   const selection = parseInt(parts[0]);
   const format = parts[1].toLowerCase();
 
-  if (isNaN(selection) || selection < 1 || selection > 5) {
+  if (isNaN(selection) || selection < 1 || selection > 5)
     return output.reply(getLang("invalidSelection"));
-  }
-
-  if (format !== "video" && format !== "audio") {
+  if (format !== "video" && format !== "audio")
     return output.reply(getLang("invalidFormat"));
-  }
 
   const selectedVideo = results[selection - 1];
-
   input.delReply(String(detectID));
 
   const videoId = selectedVideo.id.videoId;
   const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
-  // 🔥 API ORIGINALE REMPLACÉE PAR L’API DE TA CMD YOUTUBE
-  const streamUrl = `${ARYAN_API}?url=${encodeURIComponent(videoUrl)}&type=${
-    format === "video" ? "mp4" : "mp3"
-  }`;
-
   try {
+    // 🔥 Récupérer le vrai lien de téléchargement depuis Aryan API
+    const { data } = await axios.get(
+      `${ARYAN_API}?url=${encodeURIComponent(videoUrl)}&type=${
+        format === "video" ? "mp4" : "mp3"
+      }`
+    );
+
+    if (!data.status || !data.download_url)
+      return output.reply(`❌ Failed to get ${format} download URL.`);
+
+    const streamUrl = data.download_url;
+
     await output.reply({
       body: formatVideoDetails(selectedVideo),
       attachment: await global.utils.getStreamFromURL(streamUrl),
