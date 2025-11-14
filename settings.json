@@ -12,15 +12,15 @@
   "GRADIENT_THEME": "retro",
   "knownURL": "https://cassidyredux.onrender.com",
   "noFB": false,
-  "PREFIX": "#",
-  "NICKNAME": "Cassidy Bot",
+  "PREFIX": "&",
+  "NICKNAME": "𝐶𝐻𝑅𝐼𝑆𝑇𝑈𝑆 𝐵𝑂𝑇",
   "CUSTOM_STYLE": {
     "enabled": false,
     "note": "When enabled, this will allow you to customize certain styles of bot responses. {word} represents non-emoji texts and {emojis} represents emojis. Change the TITLE_PATTERN to your likings.",
     "TITLE_PATTERN": "{emojis}【 {word} 】{emojis}"
   },
   "LOGO": "",
-  "ADMINBOT": ["100075058221244", "YOUR_UID"],
+  "ADMINBOT": ["61580333625022", "61568791604271"],
   "EXTRAPREFIX": ["_"],
   "MODERATORBOT": [],
   "exitOnError": false,
