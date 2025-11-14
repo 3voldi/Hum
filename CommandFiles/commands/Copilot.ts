@@ -5,7 +5,7 @@ const cmd = easyCMD({
   name: "copilot",
   meta: {
     otherNames: ["co", "askco", "neko"],
-    author: "Christus x Liane",
+    author: "Christus",
     description: "AI conversational system powered by NekoLabs Copilot API.",
     icon: "🌬️",
     version: "1.0.0",
