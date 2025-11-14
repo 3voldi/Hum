@@ -4,13 +4,14 @@ import { StrictOutputForm } from "output-cassidy";
 const cmd = easyCMD({
   name: "gpt",
   meta: {
-    otherNames: ["gpt4o", "ai2", "ask"],
-    author: "Christus",
+    otherNames: ["gpt5", "ai2", "ask"],
+    author: "Christus Dev AI",
     description:
       "A versatile assistant that provides information, answers questions, and assists with a wide range of tasks.",
     icon: "🤖",
     version: "1.3.3",
     noPrefix: "both",
+  },
   title: {
     content: "GPT5 FREE 🖼️🎓",
     text_font: "bold",
@@ -20,6 +21,7 @@ const cmd = easyCMD({
     content: null,
     text_font: "none",
     line_bottom: "hidden",
+  },
   run(ctx) {
     return main(ctx);
   },
