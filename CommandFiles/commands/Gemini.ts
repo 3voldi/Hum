@@ -7,12 +7,12 @@ import axios from "axios";
 
 const config = {
   name: "gemini",
-  version: "2.1.0",
+  version: "2.2.0",
   permissions: [0],
   noPrefix: "both",
-  credits: "christus",
+  credits: "Christus",
   description:
-    "Interact with Google Gemini 2.0 Flash with Image recognition (From Christus's Bot command). Updated to use NekoLabs Gemini 2.0 Flash API.",
+    "Interact with AI4Chat assistant. Updated Gemini cmd to use NekoLabs AI4Chat API.",
   category: "AI",
   usages: "[text] (reply to image)",
   cooldown: 3,
@@ -20,7 +20,7 @@ const config = {
 
 const style = {
   titleFont: "bold",
-  title: "📷 Google Gemini 2.0 Flash",
+  title: "📷 Gemini AI4Chat",
   contentFont: "fancy",
 };
 
@@ -28,7 +28,7 @@ async function onCall({ message, args, getLang }) {
   const text = args.join(" ");
   if (!text)
     return message.reply(
-      "Please provide a question or reply to photo/image to recognize it with question."
+      "Please provide a question or reply to a photo/image to interact with AI4Chat."
     );
 
   try {
@@ -37,18 +37,15 @@ async function onCall({ message, args, getLang }) {
       imageUrl = message.messageReply.attachments[0].url;
     }
 
-    const systemPrompt = "You are a helpful assistant";
-
-    const api = `https://api.nekolabs.web.id/ai/gemini/2.0-flash/v1?text=${encodeURIComponent(
+    // Construction de l'API
+    const api = `https://api.nekolabs.web.id/ai/ai4chat/chat?text=${encodeURIComponent(
       text
-    )}&systemPrompt=${encodeURIComponent(systemPrompt)}${
-      imageUrl ? `&imageUrl=${encodeURIComponent(imageUrl)}` : ""
-    }`;
+    )}${imageUrl ? `&imageUrl=${encodeURIComponent(imageUrl)}` : ""}`;
 
     const res = await axios.get(api);
 
     if (!res.data?.result) {
-      return message.reply("⚠️ No response received from Gemini 2.0 Flash API.");
+      return message.reply("⚠️ No response received from AI4Chat API.");
     }
 
     message.reply(res.data.result);
