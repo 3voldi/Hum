@@ -1,12 +1,12 @@
 import axios from "axios";
 
 const config = {
-  name: "generateImage",
-  version: "1.0.1",
+  name: "imagelink",
+  version: "1.0.0",
   permissions: [0],
   noPrefix: "both",
-  credits: "Voldigo",
-  description: "Generate an AI image from your text prompt and send it directly.",
+  credits: "Christus",
+  description: "Generate an AI image from your text prompt.",
   category: "AI",
   usages: "[prompt text]",
   cooldown: 5,
@@ -14,11 +14,11 @@ const config = {
 
 const style = {
   titleFont: "bold",
-  title: "🖼️ AI Image Generator",
+  title: "🖼️ AI Image link Generator",
   contentFont: "fancy",
 };
 
-async function onCall({ message, args, sendImage }) {
+async function onCall({ message, args }) {
   const prompt = args.join(" ");
   if (!prompt) return message.reply("❌ Please provide a prompt to generate an image.");
 
@@ -29,10 +29,7 @@ async function onCall({ message, args, sendImage }) {
     const res = await axios.get(api);
 
     if (res.data.success && res.data.result) {
-      // Envoie direct de l'image
-      await sendImage(res.data.result, {
-        caption: `🖼️ Here is your image for prompt: "${prompt}"`,
-      });
+      await message.reply(`🖼️ Here is your image link for prompt: "${prompt}"\n${res.data.result}`);
     } else {
       await message.reply("❌ Failed to generate image. Please try again.");
     }
