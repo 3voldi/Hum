@@ -72,7 +72,7 @@ async function main({ output, args, input, commandName, prefix, cancelCooldown }
         `🤖 **NekoLabs Copilot**\n\n` +
         `${replyText}\n\n` +
         `――――――――――――\n` +
-        `💬 *Reply to continue the conversation.*\n` +
+        `💬 ***Reply to continue the conversation.***\n` +
         `━━━━━━━━━━━━━━`,
     };
 
